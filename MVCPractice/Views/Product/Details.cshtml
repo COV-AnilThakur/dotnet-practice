@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Product Details";
+    var product = ViewBag.Product;
+}
+
+<h2>Product Details</h2>
+
+<div style="border:1px solid #ccc; padding:20px; width:300px;">
+    <h3>@product.Name</h3>
+    <p><strong>Price:</strong> ₹@product.Price</p>
+    <p><strong>Description:</strong> This is a high-quality product.</p>
+
+    <a href="/Product">Back to Product List</a>
+</div>

@@ -1,0 +1,38 @@
+####################################
+# .NET / Visual Studio (ALL projects)
+####################################
+
+# Build outputs (any level)
+**/bin/
+**/obj/
+
+# Visual Studio files
+.vs/
+**/.vs/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+####################################
+# Logs & temp
+####################################
+*.log
+*.tmp
+
+####################################
+# OS files
+####################################
+.DS_Store
+Thumbs.db
+
+####################################
+# Optional: Rider / VS Code
+####################################
+.idea/
+.vscode/
+
+/DotNetPractice
+/data
