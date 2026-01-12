@@ -1,0 +1,42 @@
+﻿@model MVCPractice.Models.Product
+
+<h2>Create Product</h2>
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label>Product Name</label>
+        @Html.TextBoxFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+
+    <div>
+        <label>Price</label>
+        @Html.TextBoxFor(m => m.Price)
+        @Html.ValidationMessageFor(m => m.Price)
+    </div>
+
+    <div>
+        <label>Category</label>
+        @Html.DropDownListFor(
+        m => m.Category,
+                new SelectList(new[] { "Electronics", "Books", "Accessories" }),
+                "Select Category"
+                )
+        @Html.ValidationMessageFor(m => m.Category)
+    </div>
+
+    <div>
+        <label>
+            @Html.CheckBoxFor(m => m.IsAvailable)
+            Available
+        </label>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
