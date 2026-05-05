@@ -1,0 +1,23 @@
+@model Ecommerce_DBFirst.ViewModels.InventoryItemVM
+
+@{
+    ViewData["Title"] = "Inventory Details";
+}
+
+<h2>Inventory Details</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">Product ID</dt>
+    <dd class="col-sm-9">@Model.ProductId</dd>
+
+    <dt class="col-sm-3">Product Name</dt>
+    <dd class="col-sm-9">@Model.ProductName</dd>
+
+    <dt class="col-sm-3">Stock Quantity</dt>
+    <dd class="col-sm-9">@Model.StockQuantity</dd>
+
+    <dt class="col-sm-3">Last Updated (UTC)</dt>
+    <dd class="col-sm-9">@Model.LastUpdated</dd>
+</dl>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

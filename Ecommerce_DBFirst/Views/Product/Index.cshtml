@@ -1,0 +1,102 @@
+@model IEnumerable<Ecommerce_DBFirst.ViewModels.ProductVM>
+
+@{
+    var currentSort = ViewData["CurrentSort"]?.ToString();
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-success">Add New Product</a>
+    </p>
+}
+
+<form id="product-filter-form" asp-action="Index" method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-4">
+            <input id="searchTerm" type="text" name="searchTerm" value="@ViewData["CurrentSearch"]"
+                   class="form-control" placeholder="Search by product name..." />
+        </div>
+        <div class="col-md-3">
+            <select id="categoryId" name="categoryId" asp-items="ViewBag.CategoryList" class="form-control">
+                <option value="">-- All Categories --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select id="sortOrder" name="sortOrder" class="form-control">
+                @if (string.IsNullOrEmpty(currentSort))
+                {
+                    <option value="" selected>Sort by Name</option>
+                }
+                else
+                {
+                    <option value="">Sort by Name</option>
+                }
+
+                @if (currentSort == "price_asc")
+                {
+                    <option value="price_asc" selected>Price: Low to High</option>
+                }
+                else
+                {
+                    <option value="price_asc">Price: Low to High</option>
+                }
+
+                @if (currentSort == "price_desc")
+                {
+                    <option value="price_desc" selected>Price: High to Low</option>
+                }
+                else
+                {
+                    <option value="price_desc">Price: High to Low</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+    </div>
+</form>
+
+<div id="product-table-container">
+    <partial name="_ProductTable" model="Model" />
+</div>
+
+@section Scripts
+{
+    <script>
+        (function () {
+            var timerId;
+            var $form = $("#product-filter-form");
+            var $search = $("#searchTerm");
+            var $category = $("#categoryId");
+            var $sort = $("#sortOrder");
+
+            function loadProducts() {
+                $.ajax({
+                    url: $form.attr("action"),
+                    type: "GET",
+                    data: $form.serialize(),
+                    success: function (html) {
+                        $("#product-table-container").html(html);
+                    }
+                });
+            }
+
+            $form.on("submit", function (e) {
+                e.preventDefault();
+                loadProducts();
+            });
+
+            $search.on("input", function () {
+                clearTimeout(timerId);
+                timerId = setTimeout(loadProducts, 350);
+            });
+
+            $category.on("change", loadProducts);
+            $sort.on("change", loadProducts);
+        })();
+    </script>
+}

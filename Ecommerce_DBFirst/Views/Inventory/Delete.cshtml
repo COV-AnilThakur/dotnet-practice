@@ -1,0 +1,25 @@
+@model Ecommerce_DBFirst.ViewModels.InventoryItemVM
+
+@{
+    ViewData["Title"] = "Delete Inventory";
+}
+
+<h2>Delete Inventory Record</h2>
+<h4>Are you sure you want to delete this inventory record?</h4>
+
+<dl class="row">
+    <dt class="col-sm-3">Product ID</dt>
+    <dd class="col-sm-9">@Model.ProductId</dd>
+
+    <dt class="col-sm-3">Product Name</dt>
+    <dd class="col-sm-9">@Model.ProductName</dd>
+
+    <dt class="col-sm-3">Stock Quantity</dt>
+    <dd class="col-sm-9">@Model.StockQuantity</dd>
+</dl>
+
+<form asp-action="Delete" asp-route-productId="@Model.ProductId" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

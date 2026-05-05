@@ -1,0 +1,28 @@
+@model Ecommerce_DBFirst.ViewModels.ProductVM
+
+@{
+    // Accessing the title set in the controller
+    ViewData["Header"] = "Product Information";
+}
+
+<h2>@ViewBag.Title</h2>
+<h4>@ViewData["Header"]</h4>
+
+<hr />
+<div class="row">
+    <dl class="row">
+        <dt class="col-sm-3">Product Name</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Price</dt>
+        <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
+
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9">@Model.CategoryName</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

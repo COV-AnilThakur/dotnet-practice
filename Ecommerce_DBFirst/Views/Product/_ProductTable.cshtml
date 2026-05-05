@@ -1,0 +1,48 @@
+@model IEnumerable<Ecommerce_DBFirst.ViewModels.ProductVM>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@(item.IsOutOfStock ? "table-danger" : "")">
+                <td>@item.Name</td>
+                <td>@item.CategoryName</td>
+                <td>@item.Price.ToString("C")</td>
+                <td>
+                    @if (item.StockQuantity.HasValue)
+                    {
+                        @if (item.IsOutOfStock)
+                        {
+                            <span class="badge bg-danger">Out of stock</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">In stock (@item.StockQuantity)</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">No inventory record</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-sm btn-info">Details</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-danger">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

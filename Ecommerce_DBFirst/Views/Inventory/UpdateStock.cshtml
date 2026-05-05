@@ -1,0 +1,27 @@
+@model Ecommerce_DBFirst.ViewModels.InventoryUpdateVM
+
+@{
+    ViewData["Title"] = "Update Stock";
+}
+
+<h2>Update Stock Quantity</h2>
+
+<form asp-action="UpdateStock" asp-route-productId="@Model.ProductId" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ProductId" />
+
+    <div class="mb-3">
+        <label asp-for="StockQuantity" class="form-label"></label>
+        <input asp-for="StockQuantity" class="form-control" />
+        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
